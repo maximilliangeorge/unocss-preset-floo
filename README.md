@@ -2,6 +2,8 @@
 
 A [UnoCSS](https://unocss.dev) preset for fluid responsive design. Define responsive values with simple expressions that generate CSS `calc()` functions for smooth, viewport-aware scaling — no complex media query math required.
 
+[Try the playground](https://maximilliangeorge.github.io/uno-preset-floo/)
+
 ## Install
 
 ```bash
