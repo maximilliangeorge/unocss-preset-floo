@@ -7,6 +7,7 @@ A [UnoCSS](https://unocss.dev) preset for fluid responsive design. Define respon
 ## Install
 
 ```bash
+# WIP! Not published to npm yet
 pnpm add -D unocss-preset-floo
 ```
 
@@ -18,12 +19,26 @@ import { defineConfig, presetUno } from 'unocss'
 import { presetFloo } from 'unocss-preset-floo'
 
 export default defineConfig({
-  presets: [
-    presetUno(),
-    presetFloo(),
-  ],
+  presets: [presetUno(), presetFloo()],
 })
 ```
+
+## Rationale
+
+Traditional responsive design relies on stepped breakpoints that snap between fixed layouts at arbitrary viewport widths. Floo takes a different approach: values scale smoothly with the viewport, so elements adapt fluidly rather than jumping between states.
+
+Floo introduces the concept of **ideals** — the frame widths in your Figma file where each breakpoint's design looks pixel-perfect. When you write `md:text-[~48px]`, you're saying "this text should be 48px at the `md` _ideal_ width, and scale proportionally from there." This maps directly to how designers work: each breakpoint has a canvas size, and Floo uses that as its reference point.
+
+> Ideals and breakpoints are _not_ the same. Breakpoints define where a layout breaks and warrants a reflow. Ideals denote the viewport width the designer had in mind when working on the design.
+
+Floo provides three intuitive expression patterns that cover most fluid design needs:
+
+- Scale expressions (`~48px`) make values grow or shrink linearly with viewport width.
+- Ranged expressions (`~16px-24px`) that interpolate between two values across a breakpoint range.
+- Dampened expressions (`~48px/2`) scale at a reduced rate for a throttled responsive behavior.
+- All three generate the appropriate `calc()` functions automatically, so you never have to write verbose viewport math by hand.
+
+Because Floo works as a UnoCSS preset, it integrates seamlessly with your existing utility classes. Any utility that accepts arbitrary values—whether `w-`, `h-`, `p-`, `m-`, `gap-`, `text-`, or others—can use fluid expressions. This means you get fluid responsive behavior without learning a new API or changing how you write styles. Less boilerplate, more control, and a responsive system that truly matches your design intent.
 
 ## Usage
 
@@ -79,13 +94,13 @@ Each breakpoint has an **ideal** — the Figma frame width where that breakpoint
 
 Defaults:
 
-| Breakpoint | Ideal |
-|------------|-------|
-| `_` (default) | 375px |
-| `sm` | 390px |
-| `md` | 768px |
-| `lg` | 1280px |
-| `xl` | 1440px |
+| Breakpoint    | Ideal  |
+| ------------- | ------ |
+| `_` (default) | 375px  |
+| `sm`          | 390px  |
+| `md`          | 768px  |
+| `lg`          | 1280px |
+| `xl`          | 1440px |
 
 Override or extend with the `ideals` option:
 
@@ -100,18 +115,6 @@ presetFloo({
 ```
 
 Ideal keys must match your theme's breakpoint keys (except `_`, which is the default/mobile breakpoint).
-
-## Supported Units
-
-`px`, `rem`, `em`
-
-## Universal Selector Variant
-
-Use `*:` to apply fluid values without a breakpoint prefix:
-
-```html
-<div class="*:text-[~16px]">Always fluid</div>
-```
 
 ## Development
 
