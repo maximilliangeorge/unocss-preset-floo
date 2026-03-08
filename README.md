@@ -27,7 +27,7 @@ export default defineConfig({
 
 Traditional responsive design relies on stepped breakpoints that snap between fixed layouts at arbitrary viewport widths. Floo takes a different approach: values scale smoothly with the viewport, so elements adapt fluidly rather than jumping between states.
 
-Floo introduces the concept of **ideals** — the frame widths in your Figma file where each breakpoint's design looks pixel-perfect. When you write `md:text-[~48px]`, you're saying "this text should be 48px at the `md` _ideal_ width, and scale proportionally from there." This maps directly to how designers work: each breakpoint has a canvas size, and Floo uses that as its reference point.
+Floo introduces the concept of **ideals** — the frame widths in your Figma file where each breakpoint's design looks pixel-perfect. When you write `md:text-[~48px]`, you're saying "this text should be 48px at the `md` _ideal_ width, and scale proportionally from there." This maps directly to how designers work: designs are made for an _ideal_ viewport width, usually a common screen size.
 
 > Ideals and breakpoints are _not_ the same. Breakpoints define where a layout breaks and warrants a reflow. Ideals denote the viewport width the designer had in mind when working on the design.
 
@@ -38,7 +38,7 @@ Floo provides three intuitive expression patterns that cover most fluid design n
 - Dampened expressions (`~48px/2`) scale at a reduced rate for a throttled responsive behavior.
 - All three generate the appropriate `calc()` functions automatically, so you never have to write verbose viewport math by hand.
 
-Because Floo works as a UnoCSS preset, it integrates seamlessly with your existing utility classes. Any utility that accepts arbitrary values—whether `w-`, `h-`, `p-`, `m-`, `gap-`, `text-`, or others—can use fluid expressions. This means you get fluid responsive behavior without learning a new API or changing how you write styles. Less boilerplate, more control, and a responsive system that truly matches your design intent.
+Because Floo works as a UnoCSS preset, it integrates seamlessly with your existing utility classes. Any utility that accepts arbitrary values—whether `w-`, `h-`, `p-`, `m-`, `gap-`, `text-`, or others—can use fluid expressions. This means you get fluid responsive behavior without learning a new API or changing how you write styles.
 
 ## Usage
 
