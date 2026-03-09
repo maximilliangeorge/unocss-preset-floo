@@ -35,7 +35,7 @@ Floo provides three intuitive expression patterns that cover most fluid design n
 
 - Scale expressions (`~48px`) make values grow or shrink linearly with viewport width.
 - Ranged expressions (`~16px-24px`) that interpolate between two values across a breakpoint range.
-- Dampened expressions (`~48px/2`) scale at a reduced rate for a throttled responsive behavior.
+- Dampened expressions (`~48px@0.5`) scale at a reduced rate for a throttled responsive behavior.
 - All three generate the appropriate `calc()` functions automatically, so you never have to write verbose viewport math by hand.
 
 Because Floo works as a UnoCSS preset, it integrates seamlessly with your existing utility classes. Any utility that accepts arbitrary values—whether `w-`, `h-`, `p-`, `m-`, `gap-`, `text-`, or others—can use fluid expressions. This means you get fluid responsive behavior without learning a new API or changing how you write styles.
@@ -52,7 +52,7 @@ Prefix any arbitrary value with `~` to create a fluid expression:
 <p class="md:text-[~16px-24px]">Grows from 16px to 24px</p>
 
 <!-- Dampened: scales at a reduced rate -->
-<div class="md:p-[~32px/2]">Half-rate padding</div>
+<div class="md:p-[~32px@0.5]">Half-rate padding</div>
 ```
 
 Works with any utility that accepts arbitrary values — `w-`, `h-`, `p-`, `m-`, `gap-`, `text-`, etc.
@@ -77,13 +77,13 @@ md:text-[~16px-24px]
 → calc(16px + 8px * (100vw - 768px) / 512px)
 ```
 
-### Dampened — `~{value}{unit}/{factor}`
+### Dampened — `~{value}{unit}@{factor}`
 
 Scales at a reduced rate controlled by the dampening factor.
 
 ```
-md:text-[~48px/2]
-→ calc(48px * (1 + (100vw - 768px) / 768px / 2))
+md:text-[~48px@0.5]
+→ calc(48px * (1 + (100vw - 768px) / 768px * 0.5))
 ```
 
 ## Configuration

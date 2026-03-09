@@ -14,9 +14,9 @@ describe('parseFlooExpr', () => {
   })
 
   it('parses dampened expression', () => {
-    expect(parseFlooExpr('100px/2')).toEqual({ type: 'dampened', value: 100, unit: 'px', factor: 2 })
-    expect(parseFlooExpr('100px/4')).toEqual({ type: 'dampened', value: 100, unit: 'px', factor: 4 })
-    expect(parseFlooExpr('100px/1.5')).toEqual({ type: 'dampened', value: 100, unit: 'px', factor: 1.5 })
+    expect(parseFlooExpr('100px@0.5')).toEqual({ type: 'dampened', value: 100, unit: 'px', factor: 0.5 })
+    expect(parseFlooExpr('100px@0.25')).toEqual({ type: 'dampened', value: 100, unit: 'px', factor: 0.25 })
+    expect(parseFlooExpr('100px@1.5')).toEqual({ type: 'dampened', value: 100, unit: 'px', factor: 1.5 })
   })
 
   it('rejects mismatched units in range', () => {
@@ -24,7 +24,7 @@ describe('parseFlooExpr', () => {
   })
 
   it('rejects zero or negative dampening factor', () => {
-    expect(parseFlooExpr('100px/0')).toBeNull()
+    expect(parseFlooExpr('100px@0')).toBeNull()
   })
 
   it('rejects zero scale value', () => {
@@ -64,12 +64,12 @@ describe('generateCalc', () => {
   })
 
   it('generates dampened calc', () => {
-    const expr = parseFlooExpr('100px/2')!
-    expect(generateCalc(expr, mdCtx)).toBe('calc(100px * (1 + (100vw - 768px) / 768px / 2))')
+    const expr = parseFlooExpr('100px@0.5')!
+    expect(generateCalc(expr, mdCtx)).toBe('calc(100px * (1 + (100vw - 768px) / 768px * 0.5))')
   })
 
-  it('generates dampened calc with factor 4', () => {
-    const expr = parseFlooExpr('100px/4')!
-    expect(generateCalc(expr, mdCtx)).toBe('calc(100px * (1 + (100vw - 768px) / 768px / 4))')
+  it('generates dampened calc with factor 0.25', () => {
+    const expr = parseFlooExpr('100px@0.25')!
+    expect(generateCalc(expr, mdCtx)).toBe('calc(100px * (1 + (100vw - 768px) / 768px * 0.25))')
   })
 })

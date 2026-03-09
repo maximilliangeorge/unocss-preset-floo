@@ -13,43 +13,39 @@ const uno = await createGenerator({
 const examples = [
   {
     label: 'Scale (linear)',
-    classes: 'md:text-size-[~100px]',
+    classes: 'text-size-[~16px]',
     html: '<p class="demo-text">Hello</p>',
     desc: 'Font size scales linearly with viewport width from the md breakpoint.',
   },
   {
     label: 'Range (interpolate)',
-    classes: 'md:text-size-[~100px-200px]',
+    classes:
+      'text-size-[~12px-18px] sm:text-size-[~18px-24px] md:text-size-[~24px-32px] lg:text-size-[~32px-48px] xl:text-size-[~48px-56px]',
     html: '<p class="demo-text">Hello</p>',
     desc: 'Font size interpolates from 100px to 200px across the md\u2013lg range.',
   },
   {
-    label: 'Dampened (/2)',
-    classes: 'md:text-size-[~100px/2]',
+    label: 'Dampened (@0.5)',
+    classes: 'text-size-[~12px@0.5]',
     html: '<p class="demo-text">Hello</p>',
     desc: 'Font size scales at half the rate of the viewport.',
   },
   {
     label: 'Width + padding',
-    classes: 'md:w-[~300px] md:p-[~24px]',
+    classes: 'w-[~300px] p-[~24px]',
     html: '<div><div class="demo-box">Box</div></div>',
     desc: 'Both width and padding scale responsively.',
   },
   {
     label: 'Multiple breakpoints',
-    classes: 'flex sm:gap-[~8px] md:gap-[~16px] lg:gap-[~24px]',
+    classes:
+      'flex gap-[~8px-12px] sm:gap-[~12px-16px] md:gap-[~16px-24px] lg:gap-[~24px-32px] xl:gap-[~32px-48px]',
     html: '<div class="demo-grid"><div class="demo-cell">1</div><div class="demo-cell">2</div><div class="demo-cell">3</div><div class="demo-cell">4</div></div>',
     desc: 'Gap scales differently at each breakpoint.',
   },
   {
-    label: 'Dampened /4',
-    classes: 'md:text-size-[~100px/4]',
-    html: '<p class="demo-text">Hello</p>',
-    desc: 'Stronger dampening \u2014 font size changes very gradually.',
-  },
-  {
     label: 'Range with rem',
-    classes: 'md:text-size-[~1rem-2rem]',
+    classes: 'text-size-[~1rem-2rem] sm:text-size-[~2rem-3rem]',
     html: '<p class="demo-text">Hello</p>',
     desc: 'Range expression using rem units.',
   },
@@ -75,14 +71,10 @@ let currentWidth = 768
 
 // --- Viewport presets ---
 
-const viewports = [
-  { label: '390', width: 390 },
-  { label: '640', width: 640 },
-  { label: '768', width: 768 },
-  { label: '1024', width: 1024 },
-  { label: '1280', width: 1280 },
-  { label: '1440', width: 1440 },
-]
+const viewports = Object.entries(breakpoints).map(([_, value]) => ({
+  label: value,
+  width: parseInt(value),
+}))
 
 for (const vp of viewports) {
   const btn = document.createElement('button')

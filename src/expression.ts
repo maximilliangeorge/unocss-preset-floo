@@ -6,8 +6,8 @@ export type FlooExpr =
 export function parseFlooExpr(raw: string): FlooExpr | null {
   let m: RegExpMatchArray | null
 
-  // Dampened: 100px/2
-  m = raw.match(/^(\d+(?:\.\d+)?)(px|rem|em)\/(\d+(?:\.\d+)?)$/)
+  // Dampened: 100px@0.5
+  m = raw.match(/^(\d+(?:\.\d+)?)(px|rem|em)@(\d+(?:\.\d+)?)$/)
   if (m) {
     const factor = +m[3]
     if (factor <= 0) return null
@@ -53,6 +53,6 @@ export function generateCalc(expr: FlooExpr, ctx: BreakpointContext): string | n
     }
 
     case 'dampened':
-      return `calc(${expr.value}${expr.unit} * (1 + (100vw - ${ctx.sweetspot}px) / ${ctx.sweetspot}px / ${expr.factor}))`
+      return `calc(${expr.value}${expr.unit} * (1 + (100vw - ${ctx.sweetspot}px) / ${ctx.sweetspot}px * ${expr.factor}))`
   }
 }

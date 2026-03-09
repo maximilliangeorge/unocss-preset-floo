@@ -51,10 +51,10 @@ describe('floo expressions', () => {
     expect(css).toContain('font-size:calc(100px + 100px * (100vw - 768px) / 512px)')
   })
 
-  it('generates dampened calc for md:text-size-[~100px/2]', async () => {
+  it('generates dampened calc for md:text-size-[~100px@0.5]', async () => {
     const uno = await createUno()
-    const { css } = await uno.generate('md:text-size-[~100px/2]')
-    expect(css).toContain('font-size:calc(100px * (1 + (100vw - 768px) / 768px / 2))')
+    const { css } = await uno.generate('md:text-size-[~100px@0.5]')
+    expect(css).toContain('font-size:calc(100px * (1 + (100vw - 768px) / 768px * 0.5))')
   })
 
   it('works with width utility', async () => {
@@ -140,10 +140,10 @@ describe('floo expressions', () => {
     expect(css).toContain('calc(100px + 100px * (100vw - 0px) / 640px)')
   })
 
-  it('generates dampened calc for *:text-size-[~100px/2]', async () => {
+  it('generates dampened calc for *:text-size-[~100px@0.5]', async () => {
     const uno = await createUno()
-    const { css } = await uno.generate('*:text-size-[~100px/2]')
-    expect(css).toContain('calc(100px * (1 + (100vw - 375px) / 375px / 2))')
+    const { css } = await uno.generate('*:text-size-[~100px@0.5]')
+    expect(css).toContain('calc(100px * (1 + (100vw - 375px) / 375px * 0.5))')
   })
 
   it('supports custom default sweetspot', async () => {
