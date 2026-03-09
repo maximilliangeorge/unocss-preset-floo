@@ -7,221 +7,440 @@
       content="width=device-width, initial-scale=1.0"
     />
     <title>uno-floo playground</title>
+    <link
+      rel="preconnect"
+      href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="preconnect"
+      href="https://fonts.gstatic.com"
+      crossorigin
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&display=swap"
+      rel="stylesheet"
+    />
     <style>
+      :root {
+        --fg: #1a1a2e;
+        --fg-muted: #555568;
+        --fg-faint: #85859a;
+        --bg: #f8f7f6;
+        --bg-surface: #fff;
+        --bg-inset: #f0efee;
+        --border: #e2e0dd;
+        --border-strong: #c8c5c0;
+        --accent: #e25a1c;
+        --accent-hover: #c94d15;
+        --code-bg: #1c1c28;
+        --code-fg: #c8ccd8;
+        --radius: 8px;
+        --font: 'IBM Plex Mono', monospace;
+      }
+
       *,
       *::before,
       *::after {
         box-sizing: border-box;
       }
+
+      html {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+      }
+
       body {
-        font-family: monospace;
-        padding: 2rem;
+        font-family: var(--font);
+        margin: 0;
+        background: var(--bg);
+        color: var(--fg);
+        min-height: 100vh;
+      }
+
+      /* ---- Header ---- */
+      .header {
+        padding: 2.5rem 2rem 2rem;
         max-width: 1440px;
         margin: 0 auto;
-        color: #1a1a2e;
-      }
-      h1 {
-        margin-bottom: 0.25rem;
-      }
-      p.sub {
-        color: #666;
-        margin-top: 0;
       }
 
-      /* Examples */
+      .header-top {
+        display: flex;
+        align-items: baseline;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      h1 {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+
+      .github-link {
+        font-size: 0.8rem;
+        color: var(--fg-muted);
+        text-decoration: none;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 1px;
+        transition: color 0.15s, border-color 0.15s;
+      }
+
+      .github-link:hover {
+        color: var(--fg);
+        border-color: var(--fg);
+      }
+
+      .intro {
+        margin: 0.5rem 0 0;
+        font-size: 0.82rem;
+        color: var(--fg-muted);
+        line-height: 1.6;
+        max-width: 60ch;
+      }
+
+      .intro a {
+        color: var(--fg);
+        text-decoration: none;
+        border-bottom: 1px solid var(--border);
+        transition: border-color 0.15s;
+      }
+
+      .intro a:hover {
+        border-color: var(--fg);
+      }
+
+      .intro code {
+        font-family: var(--font);
+        background: var(--bg-inset);
+        padding: 0.1em 0.35em;
+        border-radius: 4px;
+        font-size: 0.92em;
+        border: 1px solid var(--border);
+      }
+
+      /* ---- Main content ---- */
+      .main {
+        padding: 0 2rem 3rem;
+        max-width: 1440px;
+        margin: 0 auto;
+      }
+
+      /* ---- Section labels ---- */
+      .section-label {
+        font-size: 0.7rem;
+        font-weight: 500;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--fg-faint);
+        margin: 0 0 0.5rem;
+      }
+
+      /* ---- Examples ---- */
+      .examples-section {
+        margin-bottom: 1.25rem;
+      }
+
       #examples {
         display: flex;
-        gap: 0.5rem;
+        gap: 0.4rem;
         flex-wrap: wrap;
-        margin-bottom: 1rem;
-      }
-      #examples button {
-        font-family: monospace;
-        font-size: 0.85rem;
-        padding: 0.4rem 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background: #f5f5f5;
-        cursor: pointer;
-        transition: all 0.15s;
-      }
-      #examples button:hover {
-        background: #e8e8e8;
-        border-color: #999;
-      }
-      #examples button.active {
-        background: #1a1a2e;
-        color: #fff;
-        border-color: #1a1a2e;
       }
 
-      /* Input */
+      #examples button {
+        font-family: var(--font);
+        font-size: 0.78rem;
+        padding: 0.4rem 0.7rem;
+        border: 1px solid var(--border);
+        border-radius: 100px;
+        background: var(--bg-surface);
+        cursor: pointer;
+        transition: all 0.15s;
+        color: var(--fg-muted);
+        font-weight: 400;
+      }
+
+      #examples button:hover {
+        border-color: var(--border-strong);
+        color: var(--fg);
+      }
+
+      #examples button.active {
+        background: var(--fg);
+        color: var(--bg);
+        border-color: var(--fg);
+      }
+
+      /* ---- Input ---- */
+      .input-section {
+        margin-bottom: 1.5rem;
+      }
+
       textarea {
         width: 100%;
         height: 5rem;
-        font-size: 0.95rem;
-        font-family: monospace;
-        padding: 0.75rem;
-        border: 1px solid #ccc;
-        border-radius: 6px;
+        font-size: 0.88rem;
+        font-family: var(--font);
+        padding: 0.85rem 1rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
         resize: vertical;
-      }
-      textarea:focus {
-        outline: none;
-        border-color: #667;
+        background: var(--bg-surface);
+        color: var(--fg);
+        line-height: 1.5;
+        transition: border-color 0.15s;
       }
 
-      /* Preview panel */
-      .preview-panel {
-        margin-top: 1.5rem;
+      textarea::placeholder {
+        color: var(--fg-faint);
       }
+
+      textarea:focus {
+        outline: none;
+        border-color: var(--border-strong);
+        box-shadow: 0 0 0 3px rgba(26, 26, 46, 0.05);
+      }
+
+      /* ---- Preview panel ---- */
+      .preview-panel {
+        margin-bottom: 1.5rem;
+      }
+
       .preview-header {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        gap: 0.75rem;
         margin-bottom: 0.5rem;
         flex-wrap: wrap;
-        gap: 0.5rem;
-      }
-      .preview-header h2 {
-        margin: 0;
-      }
-      .viewport-buttons {
-        display: flex;
-        gap: 0.25rem;
-        align-items: center;
-      }
-      .viewport-buttons button {
-        font-family: monospace;
-        font-size: 0.8rem;
-        padding: 0.3rem 0.6rem;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        background: #f5f5f5;
-        cursor: pointer;
-        transition: all 0.15s;
-      }
-      .viewport-buttons button:hover {
-        background: #e8e8e8;
-        border-color: #999;
-      }
-      .viewport-buttons button.active {
-        background: #1a1a2e;
-        color: #fff;
-        border-color: #1a1a2e;
-      }
-      .width-label {
-        font-size: 0.85rem;
-        color: #666;
-        margin-left: 0.5rem;
-        min-width: 5rem;
       }
 
-      /* Iframe container with resize handle */
+      .viewport-buttons {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        background: var(--bg-inset);
+        border-radius: 6px;
+        padding: 2px;
+        border: 1px solid var(--border);
+      }
+
+      .viewport-buttons button {
+        font-family: var(--font);
+        font-size: 0.72rem;
+        padding: 0.3rem 0.55rem;
+        border: none;
+        border-radius: 4px;
+        background: transparent;
+        cursor: pointer;
+        transition: all 0.15s;
+        color: var(--fg-muted);
+        font-weight: 400;
+      }
+
+      .viewport-buttons button:hover {
+        color: var(--fg);
+      }
+
+      .viewport-buttons button.active {
+        background: var(--bg-surface);
+        color: var(--fg);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.06);
+      }
+
+      .width-label {
+        font-size: 0.75rem;
+        color: var(--fg-faint);
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* ---- Iframe container with resize handle ---- */
       .iframe-wrap {
         position: relative;
-        border: 1px solid #ccc;
-        border-radius: 6px;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
         overflow: hidden;
-        background: #fff;
+        background: var(--bg-surface);
         transition: width 0.25s ease;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
       }
+
       .iframe-wrap.dragging {
         transition: none;
       }
+
       .iframe-wrap iframe {
         display: block;
         width: 100%;
         height: 200px;
         border: none;
       }
+
       .resize-handle {
         position: absolute;
         top: 0;
         right: 0;
-        width: 8px;
+        width: 10px;
         height: 100%;
         cursor: ew-resize;
         background: transparent;
         transition: background 0.15s;
       }
+
       .resize-handle:hover,
       .resize-handle.active {
-        background: rgba(0, 0, 0, 0.08);
+        background: rgba(0, 0, 0, 0.04);
       }
+
       .resize-handle::after {
         content: '';
         position: absolute;
         top: 50%;
-        right: 2px;
+        right: 3px;
         transform: translateY(-50%);
         width: 3px;
         height: 24px;
         border-radius: 2px;
-        background: #bbb;
+        background: var(--border-strong);
+        transition: background 0.15s;
       }
 
-      /* CSS output */
-      .css-panel {
-        margin-top: 1.5rem;
+      .resize-handle:hover::after,
+      .resize-handle.active::after {
+        background: var(--fg-faint);
       }
-      .css-panel h2 {
-        margin-bottom: 0.5rem;
+
+      /* ---- CSS output ---- */
+      .css-panel h3 {
+        margin: 0;
       }
+
       pre {
-        background: #1e1e2e;
-        color: #cdd6f4;
-        padding: 1rem;
+        background: var(--code-bg);
+        color: var(--code-fg);
+        padding: 1.25rem;
         white-space: pre-wrap;
-        border-radius: 6px;
-        font-size: 0.85rem;
+        border-radius: var(--radius);
+        font-family: var(--font);
+        font-size: 0.82rem;
         overflow-x: auto;
-        line-height: 1.5;
+        line-height: 1.65;
+        margin: 0.5rem 0 0;
+        border: 1px solid rgba(255, 255, 255, 0.04);
+      }
+
+      /* ---- Footer ---- */
+      .footer {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 2rem 2rem;
+      }
+
+      .footer-inner {
+        border-top: 1px solid var(--border);
+        padding-top: 1rem;
+        font-size: 0.72rem;
+        color: var(--fg-faint);
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .footer-inner a {
+        color: var(--fg-muted);
+        text-decoration: none;
+        border-bottom: 1px solid transparent;
+        transition: all 0.15s;
+      }
+
+      .footer-inner a:hover {
+        color: var(--fg);
+        border-color: var(--fg);
       }
     </style>
   </head>
   <body>
-    <h1>uno-floo playground</h1>
-    <p class="sub">Responsive scaling expressions for UnoCSS</p>
-
-    <div id="examples"></div>
-
-    <label>
-      <strong>Classes</strong>
-      <textarea
-        id="input"
-        placeholder="md:text-size-[~100px]"
-      ></textarea>
-    </label>
-
-    <div class="preview-panel">
-      <div class="preview-header">
-        <h2>Preview</h2>
-        <div
-          class="viewport-buttons"
-          id="viewportButtons"
-        ></div>
-        <span
-          class="width-label"
-          id="widthLabel"
-        ></span>
+    <header class="header">
+      <div class="header-top">
+        <h1>uno-floo playground</h1>
+        <a
+          class="github-link"
+          href="https://github.com/maximilliangeorge/uno-preset-floo"
+          target="_blank"
+          >GitHub</a
+        >
       </div>
-      <div
-        class="iframe-wrap"
-        id="iframeWrap"
-      >
-        <iframe id="preview"></iframe>
-        <div
-          class="resize-handle"
-          id="resizeHandle"
-        ></div>
-      </div>
-    </div>
+      <p class="intro">
+        An expression language for fluid responsive design in
+        <a
+          href="https://unocss.dev"
+          target="_blank"
+          >UnoCSS</a
+        >. Write compact scaling expressions that compile to
+        <code>clamp()</code> and <code>calc()</code> &mdash; no media queries
+        needed.
+      </p>
+    </header>
 
-    <div class="css-panel">
-      <h2>Generated CSS</h2>
-      <pre id="output"></pre>
-    </div>
+    <main class="main">
+      <div class="examples-section">
+        <p class="section-label">Examples</p>
+        <div id="examples"></div>
+      </div>
+
+      <div class="input-section">
+        <p class="section-label">Classes</p>
+        <textarea
+          id="input"
+          placeholder="md:text-size-[~100px]"
+        ></textarea>
+      </div>
+
+      <div class="preview-panel">
+        <div class="preview-header">
+          <p class="section-label" style="margin: 0">Preview</p>
+          <div
+            class="viewport-buttons"
+            id="viewportButtons"
+          ></div>
+          <span
+            class="width-label"
+            id="widthLabel"
+          ></span>
+        </div>
+        <div
+          class="iframe-wrap"
+          id="iframeWrap"
+        >
+          <iframe id="preview"></iframe>
+          <div
+            class="resize-handle"
+            id="resizeHandle"
+          ></div>
+        </div>
+      </div>
+
+      <div class="css-panel">
+        <p class="section-label">Generated CSS</p>
+        <pre id="output"></pre>
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        <span>unocss-preset-floo</span>
+        <a
+          href="https://github.com/maximilliangeorge/uno-preset-floo"
+          target="_blank"
+          >Source</a
+        >
+        <a
+          href="https://unocss.dev"
+          target="_blank"
+          >UnoCSS</a
+        >
+      </div>
+    </footer>
 
     <script
       type="module"

@@ -15,14 +15,14 @@ const examples = [
     label: 'Scale (linear)',
     classes: 'text-size-[~16px]',
     html: '<p class="demo-text">Hello</p>',
-    desc: 'Font size scales linearly with viewport width from the md breakpoint.',
+    desc: 'Font size scales linearly with viewport width based on the sweetspot.',
   },
   {
     label: 'Range (interpolate)',
     classes:
       'text-size-[~12px-18px] sm:text-size-[~18px-24px] md:text-size-[~24px-32px] lg:text-size-[~32px-48px] xl:text-size-[~48px-56px]',
     html: '<p class="demo-text">Hello</p>',
-    desc: 'Font size interpolates from 100px to 200px across the md\u2013lg range.',
+    desc: 'Font size interpolates across the breakpoint range.',
   },
   {
     label: 'Dampened (@0.5)',
@@ -47,7 +47,7 @@ const examples = [
     label: 'Range with rem',
     classes: 'text-size-[~1rem-2rem] sm:text-size-[~2rem-3rem]',
     html: '<p class="demo-text">Hello</p>',
-    desc: 'Range expression using rem units.',
+    desc: 'Ranged expression using rem units.',
   },
 ]
 
